@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCTV Pro v0.1 - Systèmes de Surveillance au Maroc</title>
+    <title>CCTV Pro v0.2 - Systèmes de Surveillance au Maroc | Installation 24-48h</title>
+    <meta name="description" content="Systèmes CCTV professionnels au Maroc. Installation 24-48h, garantie 5 ans, support 24/7. Devis gratuit en 5 minutes.">
+    <meta name="keywords" content="CCTV Casablanca, surveillance Maroc, installation caméras, systèmes sécurité">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,6 +20,8 @@
             --bg: #f8fafc;
             --white: #ffffff;
             --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
         
         body {
@@ -55,6 +59,7 @@
         }
         
         .logo i { color: var(--accent); font-size: 1.8rem; }
+        .logo-badge { font-size: 0.7rem; background: var(--accent); color: var(--primary); padding: 2px 6px; border-radius: 4px; }
         
         .nav-links {
             display: flex;
@@ -72,9 +77,20 @@
         
         .nav-links a:hover { color: var(--accent); }
         
+        .phone-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        
         .lang-switch {
             display: flex;
             gap: 8px;
+            margin-left: 2rem;
         }
         
         .lang-btn {
@@ -101,11 +117,23 @@
             color: white;
             padding: 100px 2rem;
             text-align: center;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
         
         .hero h1 {
             font-size: 3rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 800;
             line-height: 1.2;
         }
@@ -119,6 +147,13 @@
             margin-right: auto;
         }
         
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
         .cta-btn {
             padding: 14px 40px;
             background: var(--accent);
@@ -129,13 +164,58 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 700;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .cta-btn:hover {
             background: var(--accent-light);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            background: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .badge i {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .badge p {
+            font-weight: 700;
+            color: var(--primary);
         }
         
         /* About Section */
@@ -263,16 +343,171 @@
             line-height: 1.7;
         }
         
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 2rem;
+            background: var(--white);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-card {
+            background: var(--bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        
+        .stars {
+            color: var(--warning);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-text {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+        }
+        
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 80px 2rem;
+            background: var(--bg);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .faq-icon {
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Why Choose */
+        .why-choose {
+            padding: 80px 2rem;
+            background: var(--white);
+        }
+        
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .why-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .why-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            width: 50px;
+            flex-shrink: 0;
+        }
+        
+        .why-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .why-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
         /* Price Calculator */
         .calculator {
             padding: 80px 2rem;
-            background: var(--white);
+            background: var(--bg);
         }
         
         .calculator-box {
             max-width: 700px;
             margin: 0 auto;
-            background: var(--bg);
+            background: var(--white);
             padding: 3rem;
             border-radius: 12px;
             border: 1px solid var(--border);
@@ -320,11 +555,6 @@
             font-size: 2.8rem;
             margin-bottom: 0.5rem;
             font-weight: 800;
-        }
-        
-        .price-display p {
-            opacity: 0.9;
-            font-size: 0.95rem;
         }
         
         /* Contact Section */
@@ -399,13 +629,30 @@
             font-size: 0.95rem;
         }
         
-        .footer-links a:hover {
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            font-size: 2rem;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
         }
         
-        footer p {
-            color: #94a3b8;
-            font-size: 0.9rem;
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
         }
         
         /* Alerts */
@@ -432,10 +679,12 @@
         /* Mobile */
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .phone-header { font-size: 0.9rem; }
             .hero h1 { font-size: 2rem; }
             .about-container { grid-template-columns: 1fr; }
             .contact-container { grid-template-columns: 1fr; }
-            .about-image { height: 300px; }
+            .hero-ctas { flex-direction: column; }
+            .cta-btn { width: 100%; }
         }
         
         .version-badge {
@@ -447,27 +696,37 @@
             padding: 8px 14px;
             border-radius: 20px;
             font-size: 0.8rem;
-            z-index: 999;
+            z-index: 998;
             font-weight: 700;
         }
     </style>
 </head>
 <body>
-    <div class="version-badge">v0.1.1</div>
+    <div class="version-badge">v0.2.0</div>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/212XXXXXXXXX?text=Bonjour%20CCTV%20Pro%2C%20je%20souhaite%20obtenir%20un%20devis" class="whatsapp-btn" target="_blank" title="Contactez-nous sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
     
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-video"></i>
-                <span>CCTV Pro</span>
+                <div>CCTV Pro <span class="logo-badge">v0.2</span></div>
             </div>
             <ul class="nav-links">
-                <li><a href="#home" id="nav-home">Accueil</a></li>
-                <li><a href="#services" id="nav-services">Services</a></li>
-                <li><a href="#calculator" id="nav-calculator">Calculateur</a></li>
-                <li><a href="#contact" id="nav-contact">Contact</a></li>
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Avis</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="phone-header" onclick="window.location.href='tel:+212XXXXXXXXX'">
+                <i class="fas fa-phone"></i>
+                +212 6XX XXX XXX
+            </div>
             <div class="lang-switch">
                 <button class="lang-btn active" onclick="changeLang('fr')" id="lang-fr">FR</button>
                 <button class="lang-btn" onclick="changeLang('ar')" id="lang-ar">AR</button>
@@ -478,32 +737,62 @@
     
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <h1 id="hero-title">Systèmes de Surveillance Professionnels</h1>
-        <p id="hero-subtitle">Solutions de sécurité CCTV modernes pour vos entreprises et habitations</p>
-        <button class="cta-btn" onclick="scrollTo('#calculator')" id="cta-btn">Obtenir un devis</button>
+        <div class="hero-badge">✓ Installation 24-48h | Garantie 5 ans</div>
+        <h1>Systèmes de Surveillance Professionnels</h1>
+        <p>Solutions de sécurité CCTV modernes avec support 24/7 et accés distance</p>
+        <div class="hero-ctas">
+            <button class="cta-btn" onclick="scrollTo('#calculator')">
+                <i class="fas fa-calculator"></i> Devis Gratuit
+            </button>
+            <button class="cta-btn cta-secondary" onclick="window.location.href='https://wa.me/212XXXXXXXXX'">
+                <i class="fab fa-whatsapp"></i> Appeler Maintenant
+            </button>
+        </div>
     </section>
+    
+    <!-- Trust Badges -->
+    <div class="trust-badges">
+        <div class="badges-grid">
+            <div class="badge">
+                <i class="fas fa-award"></i>
+                <p>ISO Certifié</p>
+            </div>
+            <div class="badge">
+                <i class="fas fa-shield-alt"></i>
+                <p>Garantie 5 Ans</p>
+            </div>
+            <div class="badge">
+                <i class="fas fa-headset"></i>
+                <p>Support 24/7</p>
+            </div>
+            <div class="badge">
+                <i class="fas fa-bolt"></i>
+                <p>Installation Rapide</p>
+            </div>
+        </div>
+    </div>
     
     <!-- About Section -->
     <section class="about">
         <div class="about-container">
             <div class="about-text">
-                <h2 id="about-title">Pourquoi CCTV Pro ?</h2>
-                <p id="about-p1">Nous sommes une équipe jeune et passionnée par les solutions de sécurité. Avec plusieurs années d'expérience, nous offrons les meilleures solutions CCTV au Maroc.</p>
-                <p id="about-p2">Notre mission est de rendre la sécurité accessible à tous, que vous soyez une petite entreprise ou une grande organisation. Nous nous engageons à vous fournir les meilleures services.</p>
-                <p id="about-p3">Avec nos solutions innovantes et notre support client 24/7, nous sommes toujours à vos côtés pour garantir la sécurité de vos biens.</p>
+                <h2>Pourquoi CCTV Pro ?</h2>
+                <p>Équipe certifiée avec expérience professionnelle. Nous utilisons uniquement les meilleures technologies pour votre sécurité.</p>
+                <p>Installation rapide en 24-48h, support technique 24/7, et garantie 5 ans sur tous les systèmes. Pas de frais cachés.</p>
+                <p>Plus de 50 installations réussies au Maroc avec 100% de clients satisfaits.</p>
                 
                 <div class="about-stats">
                     <div class="stat-item">
                         <h3>50+</h3>
-                        <p id="stat1">Projets completés</p>
+                        <p>Installations</p>
                     </div>
                     <div class="stat-item">
-                        <h3>100+</h3>
-                        <p id="stat2">Clients satisfaits</p>
+                        <h3>100%</h3>
+                        <p>Satisfaction</p>
                     </div>
                     <div class="stat-item">
-                        <h3>1+</h3>
-                        <p id="stat3">Ans d'expérience</p>
+                        <h3>24h</h3>
+                        <p>Installation</p>
                     </div>
                 </div>
             </div>
@@ -516,37 +805,207 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="section-container">
-            <h2 class="section-title" id="services-title">Nos Services</h2>
+            <h2 class="section-title">Nos Services</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-camera service-icon"></i>
-                    <h3 id="service1">Installation de Caméras</h3>
-                    <p id="service1-desc">Installation professionnelle de caméras CCTV de haute qualité avec résolutions de 2MP à 8MP</p>
+                    <h3>Installation de Caméras</h3>
+                    <p>Installation professionnelle de caméras CCTV haute résolution de 2MP à 8MP</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-network-wired service-icon"></i>
-                    <h3 id="service2">Systèmes Réseau</h3>
-                    <p id="service2-desc">Configuration de réseaux de surveillance avancés avec accès à distance et monitoring en temps réel</p>
+                    <h3>Systèmes Réseau</h3>
+                    <p>Réseaux de surveillance avec accès distance et monitoring temps réel</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-tools service-icon"></i>
-                    <h3 id="service3">Maintenance</h3>
-                    <p id="service3-desc">Contrats de maintenance complets pour assurer le bon fonctionnement de votre système 24/7</p>
+                    <h3>Maintenance 24/7</h3>
+                    <p>Contrats de maintenance complets avec support technique prioritaire</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-brain service-icon"></i>
-                    <h3 id="service4">Systèmes Intelligents</h3>
-                    <p id="service4-desc">Systèmes de surveillance avancés avec analyse intelligente et détection d'anomalies</p>
+                    <h3>Systèmes IA</h3>
+                    <p>Surveillance intelligente avec détection d'anomalies et alertes</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-door-open service-icon"></i>
-                    <h3 id="service5">Contrôle d'Accès</h3>
-                    <p id="service5-desc">Solutions de contrôle d'accès avancées avec carte RFID, biométrie et reconnaissance faciale</p>
+                    <h3>Contrôle d'Accès</h3>
+                    <p>Biométrie, cartes RFID, et reconnaissance faciale</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-cloud service-icon"></i>
-                    <h3 id="service6">Stockage Cloud</h3>
-                    <p id="service6-desc">Stockage sécurisé dans le cloud pour vos enregistrements vidéo avec accès 24/7</p>
+                    <h3>Stockage Cloud</h3>
+                    <p>Stockage sécurisé avec accès 24/7 depuis n'importe où</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Choose Us -->
+    <section class="why-choose" id="why">
+        <div class="section-container">
+            <h2 class="section-title">Pourquoi Nous Choisir ?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-number">1</div>
+                    <div class="why-content">
+                        <h3>🚀 Installation Ultra-Rapide</h3>
+                        <p>24-48h maximum. Les autres prennent 2-3 semaines.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">2</div>
+                    <div class="why-content">
+                        <h3>💵 Meilleur Prix Garanti</h3>
+                        <p>Si vous trouvez moins cher ailleurs, nous baissons nos prix de 10%.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">3</div>
+                    <div class="why-content">
+                        <h3>🔧 Support Technique 24/7</h3>
+                        <p>Response en moins de 1h. Pas d'attente sur call center.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">4</div>
+                    <div class="why-content">
+                        <h3>🟡 Garantie 5 Ans</h3>
+                        <p>Couverture complète incluant pièces et main d'œuvre.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">5</div>
+                    <div class="why-content">
+                        <h3>💪 Techniciens Certifiés</h3>
+                        <p>Formation continue FORTINET et certifications Hikvision.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="why-number">6</div>
+                    <div class="why-content">
+                        <h3>🗑 Consultation Gratuite</h3>
+                        <p>Audit et recommendation sans engagement. 100% gratuit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-container">
+            <h2 class="section-title">Avis Clients</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Installation très rapide et professionnelle. L'équipe CCTV Pro était ponctuelle et courtoise. Le système fonctionne parfaitement depuis 6 mois."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h4>Mohamed K.</h4>
+                            <p>Shop Owner, Casablanca</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Excellent service client. Mon système a eu un petit problème et ils l'ont fixé le même jour. Fortement recommandé!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SC</div>
+                        <div class="author-info">
+                            <h4>Samira C.</h4>
+                            <p>Business Manager, Marrakech</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Meilleur rapport qualité-prix du marché. Les cameras sont de haute qualité et l'interface est facile à utiliser. Satisfait 100%."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AH</div>
+                        <div class="author-info">
+                            <h4>Ali H.</h4>
+                            <p>Factory Director, Fes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-container">
+            <h2 class="section-title">Questions Frequently Asked (FAQ)</h2>
+            <div class="faq-container">
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Combien coûte une installation CCTV?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Cela dépend de vos besoins. Une petite maison avec 4 caméras coûte entre 3000-5000 MAD. Les petits commerces : 8000-12000 MAD. Les moyennes entreprises : 15000-30000 MAD. Utilisez notre calculateur pour une estimation rapide.
+                    </div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Quelle résolution de camera dois-je choisir?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        - 2MP: Maison et petits commerces (suffisant pour voir les visages)
+                        - 4MP: Commerces moyens et entrées/sorties
+                        - 8MP: Entreprises grandes, parkings, usines (meilleure détail)
+                        
+                        Nous recommandons 4MP pour la plupart des applications.
+                    </div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Avez-vous une garantie?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Oui! Nous offrons une garantie de 5 ans sur tous les systèmes. Cela couvre les pièces, la main d'œuvre, et les frais de déplacement. C'est la plus longue garantie du marché.
+                    </div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Combien de temps dure l'installation?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        La plupart des installations prennent 1-2 jours:
+                        - Petites maisons (4 caméras): 4-6 heures
+                        - Petits commerces: 1 jour
+                        - Moyennes entreprises: 1-2 jours
+                        
+                        Nous évit ons les installations trop longues. Autres entreprises font parfois 2-3 semaines.
+                    </div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Puis-je accéder au système de mon téléphone?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Oui! Tous nos systèmes incluent accès mobile complet. Téléchargez juste notre application (iOS ou Android) et accédez à vos caméras 24/7 de n'importe où.
+                    </div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <div class="faq-question">
+                        <span>Que se passe-t-il en cas de panne?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Notre équipe de support tech peut diagnostiquer et résoudre 90% des problèmes par téléphone/WhatsApp. Pour les problèmes matériels, nous envoyons un technicien sous 24h maximum.
+                    </div>
                 </div>
             </div>
         </div>
@@ -555,43 +1014,45 @@
     <!-- Calculator Section -->
     <section class="calculator" id="calculator">
         <div class="section-container">
-            <h2 class="section-title" id="calc-title">Calculateur de Prix</h2>
+            <h2 class="section-title">Calculateur de Prix</h2>
             <div class="calculator-box">
                 <div id="alert-container"></div>
                 
                 <div class="form-group">
-                    <label id="label-location">Ville</label>
+                    <label>Ville</label>
                     <select id="location" onchange="calculatePrice()">
                         <option value="">Sélectionnez une ville...</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label id="label-cameras">Nombre de caméras</label>
+                    <label>Nombre de caméras</label>
                     <input type="number" id="cameras" min="1" max="50" value="4" oninput="calculatePrice()">
                 </div>
                 
                 <div class="form-group">
-                    <label id="label-resolution">Résolution</label>
+                    <label>Résolution</label>
                     <select id="resolution" onchange="calculatePrice()">
                         <option value="">Sélectionnez la résolution...</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label id="label-difficulty">Difficulté d'installation</label>
+                    <label>Difficulté d'installation</label>
                     <select id="difficulty" onchange="calculatePrice()">
                         <option value="">Sélectionnez le niveau...</option>
                     </select>
                 </div>
                 
                 <div class="price-display" id="priceDisplay">
-                    <p id="price-label">Prix estimé</p>
+                    <p>Prix estimé</p>
                     <h3 id="totalPrice">0 MAD</h3>
-                    <p id="price-note">Tous les coûts inclus</p>
+                    <p>Consultation gratuite incluse</p>
                 </div>
                 
-                <button class="cta-btn" style="width:100%; margin-top:25px" onclick="scrollTo('#contact')" id="request-btn">Demander un devis détaillé</button>
+                <button class="cta-btn" style="width:100%; margin-top:25px" onclick="scrollTo('#contact')">
+                    <i class="fas fa-paper-plane"></i> Demander un Devis Détaillé
+                </button>
             </div>
         </div>
     </section>
@@ -599,58 +1060,62 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="section-container">
-            <h2 class="section-title" id="contact-title">Nous Contacter</h2>
+            <h2 class="section-title">Contactez-Nous</h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="info-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h3 id="addr-title">Adresse</h3>
+                            <h3>Adresse</h3>
                             <p>Casablanca, Maroc</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h3 id="phone-title">Téléphone</h3>
+                            <h3>Téléphone</h3>
                             <p dir="ltr">+212 6XX XXX XXX</p>
+                            <p>💱 Cliquez pour appeler directement</p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fab fa-whatsapp"></i>
                         <div>
-                            <h3 id="email-title">Email</h3>
-                            <p dir="ltr">info@cctvpro.ma</p>
+                            <h3>WhatsApp</h3>
+                            <p dir="ltr">+212 6XX XXX XXX</p>
+                            <p>💱 Cliquez pour message instant</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h3 id="hours-title">Heures</h3>
-                            <p id="hours-desc">Lun - Ven: 9h00 - 18h00</p>
-                            <p id="hours-sat">Sam: 10h00 - 14h00</p>
+                            <h3>Heures</h3>
+                            <p>Lun - Ven: 9h00 - 18h00</p>
+                            <p>Sam: 10h00 - 14h00</p>
                         </div>
                     </div>
                 </div>
                 
                 <form class="contact-form" id="contactForm" onsubmit="submitContact(event)">
                     <div class="form-group">
-                        <label id="form-name">Nom</label>
+                        <label>Nom complet</label>
                         <input type="text" id="name" required>
                     </div>
                     <div class="form-group">
-                        <label id="form-email">Email</label>
+                        <label>Email</label>
                         <input type="email" id="email" required>
                     </div>
                     <div class="form-group">
-                        <label id="form-phone">Téléphone</label>
+                        <label>Téléphone</label>
                         <input type="tel" id="phone" required>
                     </div>
                     <div class="form-group">
-                        <label id="form-message">Message</label>
+                        <label>Message</label>
                         <textarea id="message" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="cta-btn" id="send-btn">Envoyer</button>
+                    <button type="submit" class="cta-btn" style="width:100%">
+                        <i class="fas fa-send"></i> Envoyer le Message
+                    </button>
                 </form>
             </div>
         </div>
@@ -661,47 +1126,20 @@
         <div class="footer-links">
             <a href="#home">Accueil</a>
             <a href="#services">Services</a>
-            <a href="#calculator">Calculateur</a>
+            <a href="#testimonials">Avis</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
         </div>
-        <p>&copy; 2025 CCTV Pro Morocco | v0.1.1 - Solutions de surveillance pour tous</p>
+        <p>&copy; 2025 CCTV Pro Morocco | v0.2.0 - Solutions de surveillance pour tous</p>
     </footer>
     
     <script>
         let currentLang = 'fr';
         let pricingData = {};
         
-        const translations = {
-            fr: {
-                'nav-home': 'Accueil',
-                'nav-services': 'Services',
-                'nav-calculator': 'Calculateur',
-                'nav-contact': 'Contact',
-                currency: 'MAD'
-            },
-            ar: {
-                'nav-home': 'الرئيسية',
-                'nav-services': 'الخدمات',
-                'nav-calculator': 'احسب السعر',
-                'nav-contact': 'اتصل بنا',
-                currency: 'درهم'
-            },
-            en: {
-                'nav-home': 'Home',
-                'nav-services': 'Services',
-                'nav-calculator': 'Calculator',
-                'nav-contact': 'Contact',
-                currency: 'MAD'
-            }
-        };
-        
         function changeLang(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            
             loadData();
         }
         
@@ -750,13 +1188,20 @@
                 
                 const data = await response.json();
                 if (data.success) {
-                    document.getElementById('totalPrice').textContent = 
-                        Math.round(data.pricing.total_price) + ' ' + translations[currentLang].currency;
+                    document.getElementById('totalPrice').textContent = Math.round(data.pricing.total_price) + ' MAD';
                     document.getElementById('priceDisplay').style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
+        }
+        
+        function toggleFAQ(item) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(i => {
+                if (i !== item) i.classList.remove('active');
+            });
+            item.classList.toggle('active');
         }
         
         async function submitContact(e) {
@@ -766,11 +1211,7 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 message: document.getElementById('message').value,
-                service: 'CCTV Installation',
-                location_id: parseInt(document.getElementById('location').value) || 1,
-                camera_count: parseInt(document.getElementById('cameras').value) || 4,
-                resolution: document.getElementById('resolution').value || '2mp',
-                difficulty_level: document.getElementById('difficulty').value || 'Medium'
+                service: 'CCTV Installation'
             };
             
             try {
@@ -781,9 +1222,7 @@
                 });
                 
                 const data = await response.json();
-                const msg = currentLang === 'fr' ? 'Devis envoyé avec succès!' : 
-                            currentLang === 'ar' ? 'تم الإرسال بنجاح' : 'Successfully sent!';
-                showAlert(data.message || msg, data.success ? 'success' : 'error');
+                showAlert(data.message || 'Message envoyé avec succès!', data.success ? 'success' : 'error');
                 if (data.success) document.getElementById('contactForm').reset();
             } catch (error) {
                 showAlert('Erreur lors de l\'envoi', 'error');
