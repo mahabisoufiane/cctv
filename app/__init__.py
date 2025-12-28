@@ -1,62 +1,28 @@
-from flask import Flask, g, request
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
-from flask_cors import CORS
-from config import config
-import logging
-from datetime import datetime
+import os
+from datetime import timedelta
 
 db = SQLAlchemy()
-mail = Mail()
 
-def create_app(config_name='development'):
-    """Application factory"""
+def create_app():
     app = Flask(__name__)
     
-    # Load configuration
-    app.config.from_object(config[config_name])
+    # Secret configuration
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cctv.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Initialize extensions
+    # Session configuration for private access
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
+    
+    # Private access token (change this to your secret)
+    app.config['ACCESS_TOKEN'] = os.environ.get('ACCESS_TOKEN', 'cctv-demo-2025-secret')
+    
     db.init_app(app)
-    mail.init_app(app)
-    CORS(app)
     
-    # Setup logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
-    
-    # Register blueprints
-    from app.routes import main_bp, api_bp, contact_bp, admin_bp, technician_bp, payment_bp
-    app.register_blueprint(main_bp)
-    app.register_blueprint(api_bp, url_prefix='/api')
-    app.register_blueprint(contact_bp)
-    app.register_blueprint(admin_bp, url_prefix='/admin')
-    app.register_blueprint(technician_bp, url_prefix='/technician')
-    app.register_blueprint(payment_bp, url_prefix='/payment')
-    
-    # Middleware for language detection
-    @app.before_request
-    def before_request():
-        # Get language from query parameter or default to 'ar'
-        lang = request.args.get('lang', 'ar')
-        if lang not in ['ar', 'fr', 'en']:
-            lang = 'ar'
-        g.current_lang = lang
-    
-    # Error handlers
-    @app.errorhandler(404)
-    def not_found_error(error):
-        return {'success': False, 'error': 'Not found'}, 404
-    
-    @app.errorhandler(500)
-    def internal_error(error):
-        db.session.rollback()
-        return {'success': False, 'error': 'Internal server error'}, 500
-    
-    # Create database tables
     with app.app_context():
+        from . import routes
         db.create_all()
     
     return app
