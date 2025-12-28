@@ -3,259 +3,681 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCTV Pro - نظام مراقبة احترافي</title>
+    <title>CCTV Pro Morocco - أفضل أنظمة المراقبة بالمغرب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            line-height: 1.6;
+            color: var(--dark);
         }
         
-        .container {
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: white;
-            border-radius: 10px;
-            padding: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
         }
         
-        .lang-switcher button {
+        .nav-links a:hover { color: var(--secondary); }
+        
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            padding: 8px 15px;
+            border: 2px solid var(--secondary);
             background: transparent;
-            border: none;
-            padding: 10px 15px;
             cursor: pointer;
-            font-size: 14px;
             border-radius: 5px;
             transition: all 0.3s;
         }
         
-        .lang-switcher button:hover {
-            background: #f0f0f0;
-        }
-        
-        .lang-switcher button.active {
-            background: #667eea;
+        .lang-btn.active {
+            background: var(--secondary);
             color: white;
         }
         
-        .content {
-            padding: 40px;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 2rem;
+            text-align: center;
         }
         
-        .calculator {
-            background: #f8f9fa;
-            padding: 30px;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s;
+        }
+        
+        .cta-btn {
+            padding: 15px 40px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: fadeInUp 1.4s;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 2rem;
+            background: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--light);
+            padding: 2rem;
             border-radius: 15px;
-            margin-bottom: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .calculator h2 {
-            color: #667eea;
-            margin-bottom: 20px;
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Price Calculator */
+        .calculator {
+            padding: 80px 2rem;
+            background: var(--light);
+        }
+        
+        .calculator-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
+            color: var(--primary);
         }
         
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
+            font-size: 1rem;
         }
         
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--secondary);
         }
         
-        .price-result {
+        .price-display {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .price-display h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 2rem;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            color: white;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 2rem;
+            background: var(--light);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .info-item i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
             text-align: center;
         }
         
-        .price-result h3 {
-            color: #667eea;
-            font-size: 2em;
-            margin-top: 10px;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: right;
         }
         
-        button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
             border: none;
-            padding: 15px 40px;
-            font-size: 18px;
-            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .quote-form {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-        }
-        
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
         }
         
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
+            .nav-links {
+                display: none;
             }
-            .content {
-                padding: 20px;
+            
+            .mobile-menu-btn {
+                display: block;
             }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
         }
     </style>
 </head>
 <body>
-    <div class="lang-switcher">
-        <button onclick="changeLang('ar')" id="lang-ar" class="active">العربية</button>
-        <button onclick="changeLang('fr')" id="lang-fr">Français</button>
-        <button onclick="changeLang('en')" id="lang-en">English</button>
-    </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-video"></i>
+                <span>CCTV Pro</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" id="nav-home">الرئيسية</a></li>
+                <li><a href="#services" id="nav-services">الخدمات</a></li>
+                <li><a href="#portfolio" id="nav-portfolio">أعمالنا</a></li>
+                <li><a href="#calculator" id="nav-calculator">احسب السعر</a></li>
+                <li><a href="#contact" id="nav-contact">اتصل بنا</a></li>
+            </ul>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="changeLang('ar')" id="lang-ar">عربي</button>
+                <button class="lang-btn" onclick="changeLang('fr')" id="lang-fr">FR</button>
+                <button class="lang-btn" onclick="changeLang('en')" id="lang-en">EN</button>
+            </div>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
     
-    <div class="container">
-        <div class="header">
-            <h1 id="title">نظام مراقبة CCTV احترافي</h1>
-            <p id="subtitle">احصل على عرض سعر فوري لنظام المراقبة الخاص بك</p>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 id="hero-title">أفضل أنظمة المراقبة في المغرب</h1>
+        <p id="hero-subtitle">نوفر لكم حلولا أمنية متكاملة بتقنية عالية الجودة</p>
+        <button class="cta-btn" onclick="scrollTo('#calculator')" id="cta-btn">احصل على عرض سعر</button>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title" id="services-title">خدماتنا</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-camera service-icon"></i>
+                <h3 id="service1-title">تركيب كاميرات CCTV</h3>
+                <p id="service1-desc">تركيب احترافي لكاميرات المراقبة بجميع الدقات من 1MP إلى 8MP</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-network-wired service-icon"></i>
+                <h3 id="service2-title">الأنظمة الشبكية</h3>
+                <p id="service2-desc">إنشاء شبكات مراقبة متكاملة مع إمكانية الوصول عن بعد</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools service-icon"></i>
+                <h3 id="service3-title">الصيانة الدورية</h3>
+                <p id="service3-desc">عقود صيانة شاملة لضمان عمل النظام بكفاءة 24/7</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shield-alt service-icon"></i>
+                <h3 id="service4-title">أنظمة الإنذار</h3>
+                <p id="service4-desc">تركيب أنظمة إنذار متطورة للحماية الكاملة</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-door-open service-icon"></i>
+                <h3 id="service5-title">التحكم في الوصول</h3>
+                <p id="service5-desc">أنظمة التحكم في الوصول بالبصمة والبطاقات</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-cloud service-icon"></i>
+                <h3 id="service6-title">التخزين السحابي</h3>
+                <p id="service6-desc">حلول تخزين سحابية آمنة لتسجيلات الفيديو</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title" id="features-title" style="color: white;">لماذا تختارنا؟</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-certificate"></i>
+                <h3 id="feature1-title">معتمدون</h3>
+                <p id="feature1-desc">فنيون معتمدون مع أكثر من 10 سنوات خبرة</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-clock"></i>
+                <h3 id="feature2-title">خدمة 24/7</h3>
+                <p id="feature2-desc">دعم فني متواصل على مدار الساعة</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-handshake"></i>
+                <h3 id="feature3-title">ضمان شامل</h3>
+                <p id="feature3-desc">ضمان 5 سنوات على جميع الأجهزة</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-tags"></i>
+                <h3 id="feature4-title">أسعار تنافسية</h3>
+                <p id="feature4-desc">أفضل الأسعار في السوق المغربي</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Price Calculator -->
+    <section class="calculator" id="calculator">
+        <h2 class="section-title" id="calc-title">احسب سعر مشروعك</h2>
+        <div class="calculator-box">
+            <div id="alert-container"></div>
+            
+            <div class="form-group">
+                <label id="label-location">المدينة</label>
+                <select id="location">
+                    <option value="">اختر المدينة...</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label id="label-cameras">عدد الكاميرات</label>
+                <input type="number" id="cameras" min="1" max="50" value="4" oninput="calculatePrice()">
+            </div>
+            
+            <div class="form-group">
+                <label id="label-resolution">دقة الكاميرا</label>
+                <select id="resolution" onchange="calculatePrice()">
+                    <option value="">اختر الدقة...</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label id="label-difficulty">صعوبة التركيب</label>
+                <select id="difficulty" onchange="calculatePrice()">
+                    <option value="">اختر المستوى...</option>
+                </select>
+            </div>
+            
+            <div class="price-display" id="priceDisplay">
+                <p id="price-label">السعر المقدر</p>
+                <h3 id="totalPrice">0 درهم</h3>
+                <p id="price-note">شامل لجميع التكاليف</p>
+            </div>
+            
+            <button class="cta-btn" style="width:100%; margin-top:20px" onclick="showContactForm()" id="request-btn">طلب عرض سعر مفصل</button>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title" id="portfolio-title">مشاريعنا</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>فيلا فاخرة - الدار البيضاء</h3>
+                    <p>16 كاميرا 4MP مع تخزين سحابي</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>مركز تجاري - مراكش</h3>
+                    <p>32 كاميرا 8MP مع نظام إنذار</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>مصنع - طنجة</h3>
+                    <p>48 كاميرا مع مراقبة ليلية</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>فندق 5 نجوم - أكادير</h3>
+                    <p>64 كاميرا مع التحكم في الوصول</p>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>مدرسة خاصة - فاس</h3>
+                    <p>24 كاميرا مع نظام مراقبة عن بعد</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>مستشفى - الرباط</h3>
+                    <p>120 كاميرا مع نظام شامل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title" id="contact-title">اتصل بنا</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3 id="address-title">العنوان</h3>
+                        <p>الدار البيضاء, المغرب</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3 id="phone-title">الهاتف</h3>
+                        <p dir="ltr">+212 5XX XXX XXX</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3 id="email-title">البريد</h3>
+                        <p dir="ltr">info@cctvpro.ma</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="contactForm" onsubmit="submitContact(event)">
+                <div class="form-group">
+                    <label id="form-name">الاسم</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label id="form-email">البريد الإلكتروني</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label id="form-phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label id="form-message">الرسالة</label>
+                    <textarea id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="cta-btn" style="width:100%" id="send-btn">إرسال</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CCTV Pro</h3>
+                <p id="footer-desc">رواد أنظمة المراقبة في المغرب</p>
+            </div>
+            <div class="footer-section">
+                <h3 id="footer-services">الخدمات</h3>
+                <p>تركيب الكاميرات</p>
+                <p>الصيانة</p>
+                <p>الاستشارات</p>
+            </div>
+            <div class="footer-section">
+                <h3 id="footer-hours">ساعات العمل</h3>
+                <p id="workdays">الإثنين - الجمعة</p>
+                <p>8:30 - 18:00</p>
+                <p id="saturday">السبت: 9:00 - 13:00</p>
+            </div>
         </div>
         
-        <div class="content">
-            <div class="success-message" id="successMessage"></div>
-            <div class="error-message" id="errorMessage"></div>
-            
-            <!-- Price Calculator -->
-            <div class="calculator">
-                <h2 id="calcTitle">حاسبة الأسعار</h2>
-                
-                <div class="form-group">
-                    <label id="labelLocation">الموقع</label>
-                    <select id="location" onchange="calculatePrice()">
-                        <option value="">اختر الموقع...</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelCameras">عدد الكاميرات</label>
-                    <input type="number" id="cameraCount" min="1" max="50" value="4" onchange="calculatePrice()">
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelResolution">دقة الكاميرا</label>
-                    <select id="resolution" onchange="calculatePrice()">
-                        <option value="">اختر الدقة...</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label id="labelDifficulty">صعوبة التركيب</label>
-                    <select id="difficulty" onchange="calculatePrice()">
-                        <option value="">اختر المستوى...</option>
-                    </select>
-                </div>
-                
-                <div class="price-result" id="priceResult" style="display:none;">
-                    <p id="priceLabel">السعر التقديري</p>
-                    <h3 id="totalPrice">0 درهم</h3>
-                    <p id="priceNote" style="color: #666; margin-top: 10px;">* السعر شامل جميع التكاليف</p>
-                </div>
-            </div>
-            
-            <!-- Quote Request Form -->
-            <div class="quote-form">
-                <h2 id="formTitle">طلب عرض سعر</h2>
-                <form id="quoteForm" onsubmit="submitQuote(event)">
-                    <div class="form-group">
-                        <label id="labelName">الاسم الكامل</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label id="labelEmail">البريد الإلكتروني</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label id="labelPhone">رقم الهاتف</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label id="labelMessage">رسالة إضافية</label>
-                        <textarea id="message" rows="4"></textarea>
-                    </div>
-                    
-                    <button type="submit" id="submitBtn">إرسال الطلب</button>
-                </form>
-            </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
         </div>
-    </div>
+        
+        <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2025 CCTV Pro Morocco. All Rights Reserved.</p>
+    </footer>
     
     <script>
         let currentLang = 'ar';
@@ -263,57 +685,39 @@
         
         const translations = {
             ar: {
-                title: 'نظام مراقبة CCTV احترافي',
-                subtitle: 'احصل على عرض سعر فوري لنظام المراقبة الخاص بك',
-                calcTitle: 'حاسبة الأسعار',
-                labelLocation: 'الموقع',
-                labelCameras: 'عدد الكاميرات',
-                labelResolution: 'دقة الكاميرا',
-                labelDifficulty: 'صعوبة التركيب',
-                priceLabel: 'السعر التقديري',
-                priceNote: '* السعر شامل جميع التكاليف',
-                formTitle: 'طلب عرض سعر',
-                labelName: 'الاسم الكامل',
-                labelEmail: 'البريد الإلكتروني',
-                labelPhone: 'رقم الهاتف',
-                labelMessage: 'رسالة إضافية',
-                submitBtn: 'إرسال الطلب',
+                'nav-home': 'الرئيسية',
+                'nav-services': 'الخدمات',
+                'nav-portfolio': 'أعمالنا',
+                'nav-calculator': 'احسب السعر',
+                'nav-contact': 'اتصل بنا',
+                'hero-title': 'أفضل أنظمة المراقبة في المغرب',
+                'hero-subtitle': 'نوفر لكم حلولا أمنية متكاملة بتقنية عالية الجودة',
+                'cta-btn': 'احصل على عرض سعر',
+                'services-title': 'خدماتنا',
                 currency: 'درهم'
             },
             fr: {
-                title: 'Système CCTV Professionnel',
-                subtitle: 'Obtenez un devis instantané pour votre système de surveillance',
-                calcTitle: 'Calculateur de Prix',
-                labelLocation: 'Emplacement',
-                labelCameras: 'Nombre de caméras',
-                labelResolution: 'Résolution caméra',
-                labelDifficulty: 'Difficulté d\'installation',
-                priceLabel: 'Prix Estimé',
-                priceNote: '* Prix tout compris',
-                formTitle: 'Demande de Devis',
-                labelName: 'Nom Complet',
-                labelEmail: 'Email',
-                labelPhone: 'Téléphone',
-                labelMessage: 'Message Additionnel',
-                submitBtn: 'Envoyer la Demande',
+                'nav-home': 'Accueil',
+                'nav-services': 'Services',
+                'nav-portfolio': 'Portfolio',
+                'nav-calculator': 'Calculateur',
+                'nav-contact': 'Contact',
+                'hero-title': 'Meilleurs systèmes CCTV au Maroc',
+                'hero-subtitle': 'Solutions de sécurité complètes avec technologie de haute qualité',
+                'cta-btn': 'Obtenir un Devis',
+                'services-title': 'Nos Services',
                 currency: 'MAD'
             },
             en: {
-                title: 'Professional CCTV System',
-                subtitle: 'Get instant quote for your surveillance system',
-                calcTitle: 'Price Calculator',
-                labelLocation: 'Location',
-                labelCameras: 'Number of Cameras',
-                labelResolution: 'Camera Resolution',
-                labelDifficulty: 'Installation Difficulty',
-                priceLabel: 'Estimated Price',
-                priceNote: '* All-inclusive price',
-                formTitle: 'Request Quote',
-                labelName: 'Full Name',
-                labelEmail: 'Email',
-                labelPhone: 'Phone',
-                labelMessage: 'Additional Message',
-                submitBtn: 'Submit Request',
+                'nav-home': 'Home',
+                'nav-services': 'Services',
+                'nav-portfolio': 'Portfolio',
+                'nav-calculator': 'Calculator',
+                'nav-contact': 'Contact',
+                'hero-title': 'Best CCTV Systems in Morocco',
+                'hero-subtitle': 'Complete security solutions with high-quality technology',
+                'cta-btn': 'Get a Quote',
+                'services-title': 'Our Services',
                 currency: 'MAD'
             }
         };
@@ -323,31 +727,14 @@
             document.documentElement.lang = lang;
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             
-            // Update active button
-            document.querySelectorAll('.lang-switcher button').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('lang-' + lang).classList.add('active');
             
-            // Update text content
-            const t = translations[lang];
-            document.getElementById('title').textContent = t.title;
-            document.getElementById('subtitle').textContent = t.subtitle;
-            document.getElementById('calcTitle').textContent = t.calcTitle;
-            document.getElementById('labelLocation').textContent = t.labelLocation;
-            document.getElementById('labelCameras').textContent = t.labelCameras;
-            document.getElementById('labelResolution').textContent = t.labelResolution;
-            document.getElementById('labelDifficulty').textContent = t.labelDifficulty;
-            document.getElementById('priceLabel').textContent = t.priceLabel;
-            document.getElementById('priceNote').textContent = t.priceNote;
-            document.getElementById('formTitle').textContent = t.formTitle;
-            document.getElementById('labelName').textContent = t.labelName;
-            document.getElementById('labelEmail').textContent = t.labelEmail;
-            document.getElementById('labelPhone').textContent = t.labelPhone;
-            document.getElementById('labelMessage').textContent = t.labelMessage;
-            document.getElementById('submitBtn').textContent = t.submitBtn;
+            Object.keys(translations[lang]).forEach(key => {
+                const elem = document.getElementById(key);
+                if (elem) elem.textContent = translations[lang][key];
+            });
             
-            // Reload data with new language
             loadData();
         }
         
@@ -357,45 +744,38 @@
                 const data = await response.json();
                 pricingData = data;
                 
-                // Populate dropdowns
                 populateSelect('location', data.locations, 'name');
                 populateSelect('resolution', data.resolutions, 'resolution');
                 populateSelect('difficulty', data.difficulties, 'level');
             } catch (error) {
-                console.error('Error loading data:', error);
+                console.error('Error:', error);
             }
         }
         
-        function populateSelect(selectId, items, valueKey) {
-            const select = document.getElementById(selectId);
-            const firstOption = select.options[0].text;
-            select.innerHTML = `<option value="">${firstOption}</option>`;
-            
+        function populateSelect(id, items, key) {
+            const select = document.getElementById(id);
+            const first = select.options[0].text;
+            select.innerHTML = `<option value="">${first}</option>`;
             items.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item[valueKey];
-                select.appendChild(option);
+                select.innerHTML += `<option value="${item.id}">${item[key]}</option>`;
             });
         }
         
         async function calculatePrice() {
             const location = document.getElementById('location').value;
-            const cameraCount = document.getElementById('cameraCount').value;
+            const cameras = document.getElementById('cameras').value;
             const resolution = document.getElementById('resolution').value;
             const difficulty = document.getElementById('difficulty').value;
             
-            if (!location || !cameraCount || !resolution || !difficulty) {
-                return;
-            }
+            if (!location || !cameras || !resolution || !difficulty) return;
             
             try {
-                const response = await fetch('/api/calculate-price?lang=' + currentLang, {
+                const response = await fetch('/api/calculate-price', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         location_id: parseInt(location),
-                        camera_count: parseInt(cameraCount),
+                        camera_count: parseInt(cameras),
                         resolution: resolution,
                         difficulty_level: difficulty
                     })
@@ -403,19 +783,17 @@
                 
                 const data = await response.json();
                 if (data.success) {
-                    const currency = translations[currentLang].currency;
                     document.getElementById('totalPrice').textContent = 
-                        Math.round(data.pricing.total_price) + ' ' + currency;
-                    document.getElementById('priceResult').style.display = 'block';
+                        Math.round(data.pricing.total_price) + ' ' + translations[currentLang].currency;
+                    document.getElementById('priceDisplay').style.display = 'block';
                 }
             } catch (error) {
-                console.error('Error calculating price:', error);
+                console.error('Error:', error);
             }
         }
         
-        async function submitQuote(event) {
-            event.preventDefault();
-            
+        async function submitContact(e) {
+            e.preventDefault();
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -423,38 +801,44 @@
                 message: document.getElementById('message').value,
                 service: 'CCTV Installation',
                 location_id: parseInt(document.getElementById('location').value) || 1,
-                camera_count: parseInt(document.getElementById('cameraCount').value) || 4,
+                camera_count: parseInt(document.getElementById('cameras').value) || 4,
                 resolution: document.getElementById('resolution').value || '2mp',
                 difficulty_level: document.getElementById('difficulty').value || 'Medium'
             };
             
             try {
-                const response = await fetch('/quote?lang=' + currentLang, {
+                const response = await fetch('/quote', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(formData)
                 });
                 
                 const data = await response.json();
-                
-                if (data.success) {
-                    document.getElementById('successMessage').textContent = data.message;
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('quoteForm').reset();
-                    setTimeout(() => {
-                        document.getElementById('successMessage').style.display = 'none';
-                    }, 5000);
-                } else {
-                    document.getElementById('errorMessage').textContent = data.error;
-                    document.getElementById('errorMessage').style.display = 'block';
-                }
+                showAlert(data.message, data.success ? 'success' : 'error');
+                if (data.success) document.getElementById('contactForm').reset();
             } catch (error) {
-                document.getElementById('errorMessage').textContent = 'Error submitting request';
-                document.getElementById('errorMessage').style.display = 'block';
+                showAlert('Error submitting form', 'error');
             }
         }
         
-        // Initialize
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            const container = document.getElementById('alert-container') || document.querySelector('.calculator-box');
+            container.appendChild(alert);
+            alert.style.display = 'block';
+            setTimeout(() => alert.remove(), 5000);
+        }
+        
+        function scrollTo(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showContactForm() {
+            scrollTo('#contact');
+        }
+        
         loadData();
     </script>
 </body>
