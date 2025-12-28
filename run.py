@@ -10,8 +10,8 @@ load_dotenv()
 from app import create_app, db
 from app.models import Location, CameraSpecification, InstallationDifficulty, QuoteRequest
 
-# Create Flask app
-app = create_app(os.environ.get('FLASK_ENV', 'development'))
+# Create Flask app - NO ARGUMENTS!
+app = create_app()
 
 
 @app.shell_context_processor
