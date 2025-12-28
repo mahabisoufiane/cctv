@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Pro - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 2rem;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-card .change {
+            font-size: 0.85rem;
+            color: var(--success);
+            margin-top: 0.5rem;
+        }
+
+        .stat-card.danger { border-left-color: var(--danger); }
+        .stat-card.success { border-left-color: var(--success); }
+        .stat-card.warning { border-left-color: var(--warning); }
+
+        /* Tables */
+        .section {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead {
+            background-color: var(--light);
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        table tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success);
+        }
+
+        .badge-danger {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger);
+        }
+
+        .badge-warning {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-info {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--secondary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">CCTV Pro</div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="nav-link active" data-section="dashboard">📊 Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-section="quotes">📋 Quotes</a></li>
+                    <li><a href="#" class="nav-link" data-section="installations">🔧 Installations</a></li>
+                    <li><a href="#" class="nav-link" data-section="payments">💳 Payments</a></li>
+                    <li><a href="#" class="nav-link" data-section="invoices">📄 Invoices</a></li>
+                    <li><a href="#" class="nav-link" data-section="technicians">👷 Technicians</a></li>
+                    <li><a href="#" class="nav-link" data-section="analytics">📈 Analytics</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Header -->
+            <div class="header">
+                <h1>Admin Dashboard</h1>
+                <div class="user-info">
+                    <span id="user-name">Administrator</span>
+                    <a href="/logout" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section">
+                <div class="dashboard-grid" id="stat-cards">
+                    <!-- Stats will be loaded here -->
+                </div>
+
+                <!-- Recent Quotes -->
+                <div class="section">
+                    <h2>Recent Quotes</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Quote ID</th>
+                                <th>Customer</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-quotes">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quotes Section -->
+            <div id="quotes-section" style="display:none;">
+                <div class="section">
+                    <h2>All Quotes</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotes-table">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Installations Section -->
+            <div id="installations-section" style="display:none;">
+                <div class="section">
+                    <h2>Installations</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Quote</th>
+                                <th>Technician</th>
+                                <th>Status</th>
+                                <th>Scheduled</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="installations-table">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Technicians Section -->
+            <div id="technicians-section" style="display:none;">
+                <div style="margin-bottom: 1rem;">
+                    <button class="btn btn-primary" onclick="openAddTechnicianModal()">+ Add Technician</button>
+                </div>
+                <div class="section">
+                    <h2>Team Members</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Specialization</th>
+                                <th>Status</th>
+                                <th>Jobs Completed</th>
+                                <th>Rating</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="technicians-table">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Payments Section -->
+            <div id="payments-section" style="display:none;">
+                <div class="section">
+                    <h2>Payment Records</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Quote</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Paid Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-table">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Assigning Technician -->
+    <div id="assign-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Assign Technician</h2>
+                <button class="close-btn" onclick="closeModal('assign-modal')">&times;</button>
+            </div>
+            <form onsubmit="submitAssignment(event)">
+                <div class="form-group">
+                    <label>Technician:</label>
+                    <select id="technician-select" required>
+                        <option value="">Select technician...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Scheduled Date:</label>
+                    <input type="datetime-local" id="scheduled-date" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Assign</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Technician -->
+    <div id="add-technician-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Technician</h2>
+                <button class="close-btn" onclick="closeModal('add-technician-modal')">&times;</button>
+            </div>
+            <form onsubmit="submitAddTechnician(event)">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" id="tech-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="tech-email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input type="tel" id="tech-phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Specialization:</label>
+                    <input type="text" id="tech-specialization" placeholder="Installation, Maintenance, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Salary (MAD):</label>
+                    <input type="number" id="tech-salary" step="0.01">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Technician</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/admin/api';
+
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboardStats();
+            loadRecentQuotes();
+            setupNavigation();
+            loadTechnicians();
+        });
+
+        function setupNavigation() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = e.target.dataset.section;
+                    switchSection(section);
+                });
+            });
+        }
+
+        function switchSection(section) {
+            // Hide all sections
+            document.querySelectorAll('[id$="-section"]').forEach(s => {
+                s.style.display = 'none';
+            });
+
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+
+            // Update active nav
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Load section data
+            if (section === 'quotes') loadQuotes();
+            if (section === 'installations') loadInstallations();
+            if (section === 'payments') loadPayments();
+            if (section === 'technicians') loadTechnicians();
+        }
+
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch(`${API_BASE}/dashboard/stats`);
+                const result = await response.json();
+                if (result.success) {
+                    displayStats(result);
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        function displayStats(data) {
+            const html = `
+                <div class="stat-card success">
+                    <h3>Total Quotes</h3>
+                    <div class="value">${data.quotes.total}</div>
+                    <div class="change">+${data.quotes.new} new</div>
+                </div>
+                <div class="stat-card success">
+                    <h3>Conversion Rate</h3>
+                    <div class="value">${data.quotes.conversion_rate}%</div>
+                    <div class="change">${data.quotes.converted} converted</div>
+                </div>
+                <div class="stat-card warning">
+                    <h3>This Month Revenue</h3>
+                    <div class="value">${data.revenue.this_month}</div>
+                    <div class="change">MAD</div>
+                </div>
+                <div class="stat-card danger">
+                    <h3>Pending Installations</h3>
+                    <div class="value">${data.installations.pending}</div>
+                    <div class="change">${data.installations.in_progress} in progress</div>
+                </div>
+                <div class="stat-card success">
+                    <h3>Available Technicians</h3>
+                    <div class="value">${data.team.available}/${data.team.total}</div>
+                    <div class="change">${data.team.busy} busy</div>
+                </div>
+                <div class="stat-card info">
+                    <h3>Completed Jobs</h3>
+                    <div class="value">${data.installations.completed}</div>
+                    <div class="change">This year</div>
+                </div>
+            `;
+            document.getElementById('stat-cards').innerHTML = html;
+        }
+
+        async function loadRecentQuotes() {
+            try {
+                const response = await fetch(`${API_BASE}/quotes?per_page=5`);
+                const result = await response.json();
+                if (result.success) {
+                    const html = result.data.map(q => `
+                        <tr>
+                            <td>#${q.id}</td>
+                            <td>${q.name}</td>
+                            <td>${q.phone}</td>
+                            <td><span class="badge badge-info">${q.status}</span></td>
+                            <td>${q.estimated_price || '-'} MAD</td>
+                            <td>${new Date(q.created_at).toLocaleDateString()}</td>
+                            <td><button class="btn btn-primary btn-small" onclick="openAssignModal(${q.id})">Assign</button></td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('recent-quotes').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function loadQuotes() {
+            try {
+                const response = await fetch(`${API_BASE}/quotes`);
+                const result = await response.json();
+                if (result.success) {
+                    const html = result.data.map(q => `
+                        <tr>
+                            <td>#${q.id}</td>
+                            <td>${q.name}</td>
+                            <td>${q.email}</td>
+                            <td>${q.service}</td>
+                            <td><span class="badge badge-info">${q.status}</span></td>
+                            <td>${new Date(q.created_at).toLocaleDateString()}</td>
+                            <td><button class="btn btn-primary btn-small">View</button></td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('quotes-table').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function loadInstallations() {
+            try {
+                const response = await fetch(`${API_BASE}/installations`);
+                const result = await response.json();
+                if (result.success) {
+                    const html = result.data.map(i => `
+                        <tr>
+                            <td>#${i.id}</td>
+                            <td>#${i.quote_id}</td>
+                            <td>${i.technician_name || '-'}</td>
+                            <td><span class="badge badge-warning">${i.status}</span></td>
+                            <td>${i.scheduled_date ? new Date(i.scheduled_date).toLocaleDateString() : '-'}</td>
+                            <td><button class="btn btn-primary btn-small">Update</button></td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('installations-table').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function loadPayments() {
+            try {
+                const response = await fetch(`${API_BASE}/payments`);
+                const result = await response.json();
+                if (result.success) {
+                    const html = result.data.map(p => `
+                        <tr>
+                            <td>#${p.id}</td>
+                            <td>#${p.quote_id}</td>
+                            <td>${p.amount} ${p.currency}</td>
+                            <td>${p.payment_method}</td>
+                            <td><span class="badge badge-success">${p.status}</span></td>
+                            <td>${p.paid_at ? new Date(p.paid_at).toLocaleDateString() : '-'}</td>
+                            <td><button class="btn btn-primary btn-small">Details</button></td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('payments-table').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function loadTechnicians() {
+            try {
+                const response = await fetch(`${API_BASE}/technicians`);
+                const result = await response.json();
+                if (result.success) {
+                    const html = result.data.map(t => `
+                        <tr>
+                            <td>${t.name}</td>
+                            <td>${t.phone}</td>
+                            <td>${t.specialization || '-'}</td>
+                            <td><span class="badge badge-success">${t.status}</span></td>
+                            <td>${t.total_completed}</td>
+                            <td>${t.rating.toFixed(1)} ⭐</td>
+                            <td><button class="btn btn-primary btn-small">Edit</button></td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('technicians-table').innerHTML = html;
+                    
+                    // Populate technician select
+                    const selectHtml = result.data.map(t => `
+                        <option value="${t.id}">${t.name}</option>
+                    `).join('');
+                    document.getElementById('technician-select').innerHTML = '<option value="">Select technician...</option>' + selectHtml;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function openAssignModal(quoteId) {
+            document.getElementById('assign-modal').dataset.quoteId = quoteId;
+            document.getElementById('assign-modal').classList.add('active');
+        }
+
+        function openAddTechnicianModal() {
+            document.getElementById('add-technician-modal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        async function submitAssignment(event) {
+            event.preventDefault();
+            const quoteId = document.getElementById('assign-modal').dataset.quoteId;
+            const technicianId = document.getElementById('technician-select').value;
+            const scheduledDate = document.getElementById('scheduled-date').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/quotes/${quoteId}/assign-technician`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        technician_id: parseInt(technicianId),
+                        scheduled_date: scheduledDate
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Technician assigned successfully!');
+                    closeModal('assign-modal');
+                    loadRecentQuotes();
+                    loadInstallations();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error assigning technician: ' + error);
+            }
+        }
+
+        async function submitAddTechnician(event) {
+            event.preventDefault();
+            const data = {
+                name: document.getElementById('tech-name').value,
+                email: document.getElementById('tech-email').value,
+                phone: document.getElementById('tech-phone').value,
+                specialization: document.getElementById('tech-specialization').value,
+                salary: parseFloat(document.getElementById('tech-salary').value)
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/technicians`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Technician added successfully!');
+                    closeModal('add-technician-modal');
+                    loadTechnicians();
+                    event.target.reset();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error);
+            }
+        }
+    </script>
+</body>
+</html>
