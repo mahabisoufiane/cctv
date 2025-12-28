@@ -34,7 +34,15 @@ def create_app():
     mail.init_app(app)
     
     with app.app_context():
-        from . import routes
+        # Import and register blueprints
+        from .routes import main_bp, api_bp, contact_bp, admin_bp, technician_bp, payment_bp
+        app.register_blueprint(main_bp)
+        app.register_blueprint(api_bp, url_prefix='/api')
+        app.register_blueprint(contact_bp)
+        app.register_blueprint(admin_bp, url_prefix='/admin')
+        app.register_blueprint(technician_bp, url_prefix='/technician')
+        app.register_blueprint(payment_bp, url_prefix='/payment')
+        
         db.create_all()
     
     return app
