@@ -45,7 +45,7 @@ class Installation(db.Model):
     __tablename__ = 'installation'
     
     id = db.Column(db.Integer, primary_key=True)
-    quote_id = db.Column(db.Integer, db.ForeignKey('quote_request.id'), nullable=False)
+    quote_id = db.Column(db.Integer, db.ForeignKey('quote_requests.id'), nullable=False)
     technician_id = db.Column(db.Integer, db.ForeignKey('technician.id'))
     status = db.Column(db.String(20), default='pending')  # pending, in-progress, completed, failed
     scheduled_date = db.Column(db.DateTime)
@@ -81,7 +81,7 @@ class Payment(db.Model):
     __tablename__ = 'payment'
     
     id = db.Column(db.Integer, primary_key=True)
-    quote_id = db.Column(db.Integer, db.ForeignKey('quote_request.id'), nullable=False, unique=True)
+    quote_id = db.Column(db.Integer, db.ForeignKey('quote_requests.id'), nullable=False, unique=True)
     amount = db.Column(db.Float, nullable=False)  # MAD
     currency = db.Column(db.String(3), default='MAD')
     status = db.Column(db.String(20), default='pending')  # pending, completed, failed, refunded
@@ -118,7 +118,7 @@ class Invoice(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     invoice_number = db.Column(db.String(50), unique=True, nullable=False)  # INV-2026-00001
-    quote_id = db.Column(db.Integer, db.ForeignKey('quote_request.id'), nullable=False)
+    quote_id = db.Column(db.Integer, db.ForeignKey('quote_requests.id'), nullable=False)
     payment_id = db.Column(db.Integer, db.ForeignKey('payment.id'))
     issued_date = db.Column(db.DateTime, default=datetime.utcnow)
     due_date = db.Column(db.DateTime)  # 30 days from issued
