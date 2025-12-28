@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Pro - Technician Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--primary);
+        }
+
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .card h3 {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .card.success { border-left-color: var(--success); }
+        .card.danger { border-left-color: var(--danger); }
+        .card.warning { border-left-color: var(--warning); }
+
+        .section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background-color: var(--light);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-in-progress {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--secondary);
+        }
+
+        .badge-completed {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #229954;
+        }
+
+        .job-detail {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .job-detail p {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>🔧 Technician Portal</h1>
+            <p>Welcome! Manage your installation jobs and submit updates.</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats -->
+        <div class="grid">
+            <div class="card success">
+                <h3>Active Jobs</h3>
+                <div class="value" id="active-jobs">0</div>
+            </div>
+            <div class="card">
+                <h3>Pending Jobs</h3>
+                <div class="value" id="pending-jobs">0</div>
+            </div>
+            <div class="card warning">
+                <h3>In Progress</h3>
+                <div class="value" id="in-progress-jobs">0</div>
+            </div>
+            <div class="card success">
+                <h3>Completed</h3>
+                <div class="value" id="completed-jobs">0</div>
+            </div>
+            <div class="card">
+                <h3>Rating</h3>
+                <div class="value" id="rating">0 ⭐</div>
+            </div>
+        </div>
+
+        <!-- Active Jobs -->
+        <div class="section">
+            <h2>📋 My Jobs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Job ID</th>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Scheduled</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="jobs-table">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #7f8c8d;">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Job Detail Modal -->
+        <div id="job-modal" class="modal">
+            <div class="modal-content">
+                <h2>Job Details</h2>
+                <div id="job-detail-content"></div>
+                <button class="btn" onclick="closeJobModal()" style="margin-top: 1rem;">Close</button>
+            </div>
+        </div>
+
+        <!-- Complete Job Modal -->
+        <div id="complete-modal" class="modal">
+            <div class="modal-content">
+                <h2>Complete Job</h2>
+                <form onsubmit="submitCompletion(event)">
+                    <div class="form-group">
+                        <label>Labor Hours Spent:</label>
+                        <input type="number" id="labor-hours" step="0.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Issues Encountered:</label>
+                        <textarea id="issues" placeholder="Describe any issues..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes:</label>
+                        <textarea id="completion-notes" placeholder="Additional notes..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Mark as Complete</button>
+                    <button type="button" class="btn" onclick="closeCompleteModal()" style="margin-left: 0.5rem; background-color: #95a5a6;">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/technician/api';
+        let currentJobId = null;
+        let currentTechnicianId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // TODO: Get technician ID from session/JWT
+            currentTechnicianId = 1; // Mock for now
+            loadProfile();
+            loadJobs();
+        });
+
+        async function loadProfile() {
+            try {
+                const response = await fetch(`${API_BASE}/technician/profile/${currentTechnicianId}`);
+                const result = await response.json();
+                if (result.success) {
+                    const stats = result.stats;
+                    document.getElementById('active-jobs').textContent = stats.current_jobs;
+                    document.getElementById('pending-jobs').textContent = stats.pending_jobs;
+                    document.getElementById('in-progress-jobs').textContent = stats.in_progress_jobs;
+                    document.getElementById('completed-jobs').textContent = stats.completed_jobs;
+                    document.getElementById('rating').textContent = stats.average_satisfaction.toFixed(1) + ' ⭐';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function loadJobs() {
+            try {
+                const response = await fetch(`${API_BASE}/jobs?technician_id=${currentTechnicianId}`);
+                const result = await response.json();
+                if (result.success) {
+                    const jobs = result.jobs;
+                    if (jobs.length === 0) {
+                        document.getElementById('jobs-table').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #7f8c8d;">No jobs assigned</td></tr>';
+                        return;
+                    }
+                    const html = jobs.map(job => `
+                        <tr>
+                            <td>#${job.id}</td>
+                            <td>${job.customer_name}</td>
+                            <td>${job.customer_phone}</td>
+                            <td>${job.scheduled_date ? new Date(job.scheduled_date).toLocaleDateString() : '-'}</td>
+                            <td><span class="badge badge-${job.status}">${job.status}</span></td>
+                            <td>
+                                <button class="btn btn-small" onclick="viewJobDetail(${job.id})">View</button>
+                                ${job.status === 'pending' ? `<button class="btn btn-small" onclick="startJob(${job.id})" style="margin-left: 0.25rem; background-color: var(--secondary);">Start</button>` : ''}
+                                ${job.status === 'in-progress' ? `<button class="btn btn-small btn-success" onclick="openCompleteModal(${job.id})">Complete</button>` : ''}
+                            </td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('jobs-table').innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('jobs-table').innerHTML = '<tr><td colspan="6" style="text-align: center; color: #e74c3c;">Error loading jobs</td></tr>';
+            }
+        }
+
+        async function viewJobDetail(jobId) {
+            try {
+                const response = await fetch(`${API_BASE}/jobs/${jobId}`);
+                const result = await response.json();
+                if (result.success) {
+                    const job = result.job;
+                    const customer = result.customer;
+                    const project = result.project;
+                    const html = `
+                        <div class="job-detail">
+                            <h3>Customer Information</h3>
+                            <p><strong>Name:</strong> ${customer.name}</p>
+                            <p><strong>Phone:</strong> ${customer.phone}</p>
+                            <p><strong>Email:</strong> ${customer.email}</p>
+                            <p><strong>Address:</strong> ${customer.address}</p>
+                        </div>
+                        <div class="job-detail">
+                            <h3>Project Details</h3>
+                            <p><strong>Service:</strong> ${project.service}</p>
+                            <p><strong>Cameras:</strong> ${project.camera_count}</p>
+                            <p><strong>Resolution:</strong> ${project.resolution}</p>
+                            <p><strong>Difficulty:</strong> ${project.difficulty}</p>
+                            <p><strong>Notes:</strong> ${project.message}</p>
+                        </div>
+                        <div class="job-detail">
+                            <h3>Status</h3>
+                            <p><strong>Current Status:</strong> ${job.status}</p>
+                            <p><strong>Scheduled:</strong> ${job.scheduled_date ? new Date(job.scheduled_date).toLocaleString() : '-'}</p>
+                            <p><strong>Completion Date:</strong> ${job.completion_date ? new Date(job.completion_date).toLocaleString() : '-'}</p>
+                        </div>
+                    `;
+                    document.getElementById('job-detail-content').innerHTML = html;
+                    document.getElementById('job-modal').classList.add('active');
+                }
+            } catch (error) {
+                alert('Error loading job details: ' + error);
+            }
+        }
+
+        async function startJob(jobId) {
+            try {
+                const response = await fetch(`${API_BASE}/jobs/${jobId}/start`, { method: 'POST' });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Job started!');
+                    loadJobs();
+                    loadProfile();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error);
+            }
+        }
+
+        function openCompleteModal(jobId) {
+            currentJobId = jobId;
+            document.getElementById('complete-modal').classList.add('active');
+        }
+
+        function closeCompleteModal() {
+            document.getElementById('complete-modal').classList.remove('active');
+            currentJobId = null;
+        }
+
+        function closeJobModal() {
+            document.getElementById('job-modal').classList.remove('active');
+        }
+
+        async function submitCompletion(event) {
+            event.preventDefault();
+            const laborHours = parseFloat(document.getElementById('labor-hours').value);
+            const issues = document.getElementById('issues').value;
+            const notes = document.getElementById('completion-notes').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/jobs/${currentJobId}/complete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        labor_hours: laborHours,
+                        issues: issues,
+                        notes: notes
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Job completed successfully!');
+                    closeCompleteModal();
+                    loadJobs();
+                    loadProfile();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error);
+            }
+        }
+    </script>
+</body>
+</html>
