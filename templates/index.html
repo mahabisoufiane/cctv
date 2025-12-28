@@ -1,310 +1,677 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CameraPro - Premium Security Camera Solutions</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="نظام مراقبة CCTV احترافي - أفضل حل امني لعملك - CCTV Pro Morocco">
+    <meta name="keywords" content="CCTV, مراقبة امنية, كاميرات, الدار البيضاء, المغرب">
+    <title>CCTV Pro - نظام مراقبة احترافي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #ecf0f1;
+            --white: #ffffff;
+            --text-color: #2c3e50;
+            --text-light: #7f8c8d;
+            --border-color: #bdc3c7;
+        }
+
+        html[lang="en"] {
+            direction: ltr;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 2px solid var(--white);
+            color: var(--white);
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .lang-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 2rem;
+            border-radius: 10px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        main {
+            margin: 3rem 0;
+        }
+
+        .section {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--text-light);
+            color: var(--white);
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Messages */
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .spinner {
+            border: 4px solid var(--light-bg);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-brand">
-                <i class="fas fa-camera"></i>
-                <span>CameraPro</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#pricing" class="nav-link">Pricing</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">CCTV Pro</div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="ar">العربية</button>
+                <button class="lang-btn" data-lang="fr">Français</button>
+                <button class="lang-btn" data-lang="en">English</button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Protect What Matters Most</h1>
-            <p class="hero-subtitle">Professional Security Camera Installation & Monitoring Solutions</p>
-            <a href="#pricing" class="btn btn-primary btn-lg">Get Your Quote Now</a>
-        </div>
-        <div class="hero-background">
-            <div class="animated-shape shape-1"></div>
-            <div class="animated-shape shape-2"></div>
-            <div class="animated-shape shape-3"></div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- Main Content -->
+    <main>
         <div class="container">
-            <h2 class="section-title">Our Premium Services</h2>
-            <p class="section-subtitle">Comprehensive security solutions for residential and commercial properties</p>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1 id="hero-title">نظام مراقبة أمني احترافي</h1>
+                <p id="hero-subtitle">أفضل حل أمني متكامل لعملك وممتلكاتك</p>
+            </div>
+
+            <!-- Pricing Calculator -->
+            <section class="section">
+                <h2 id="calc-title">حاسبة الأسعار</h2>
+                <div class="alert" id="calc-alert"></div>
+                
+                <div class="grid-2">
+                    <div>
+                        <div class="form-group">
+                            <label id="location-label" for="location">الموقع</label>
+                            <select id="location" required>
+                                <option value="">-- اختر الموقع --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label id="camera-count-label" for="camera-count">عدد الكاميرات</label>
+                            <input type="number" id="camera-count" min="1" max="100" value="4" required>
+                        </div>
                     </div>
-                    <h3>Professional Installation</h3>
-                    <p>Expert technicians install high-quality 4K cameras with precision mounting and cable management</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> 4K Ultra HD Cameras</li>
-                        <li><i class="fas fa-check"></i> Hidden Wiring</li>
-                        <li><i class="fas fa-check"></i> Weatherproof Mounting</li>
-                    </ul>
-                </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-network-wired"></i>
+                    <div>
+                        <div class="form-group">
+                            <label id="resolution-label" for="resolution">دقة الكاميرا</label>
+                            <select id="resolution" required>
+                                <option value="">-- اختر الدقة --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label id="difficulty-label" for="difficulty">مستوى التثبيت</label>
+                            <select id="difficulty" required>
+                                <option value="">-- اختر المستوى --</option>
+                            </select>
+                        </div>
                     </div>
-                    <h3>System Configuration</h3>
-                    <p>Complete network setup, cloud integration, and mobile app configuration for 24/7 monitoring</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> Cloud Storage</li>
-                        <li><i class="fas fa-check"></i> Mobile App Access</li>
-                        <li><i class="fas fa-check"></i> AI Detection</li>
-                    </ul>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>24/7 Support & Maintenance</h3>
-                    <p>Round-the-clock support, regular maintenance, and system upgrades to keep your security optimal</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> 24/7 Support</li>
-                        <li><i class="fas fa-check"></i> Free Maintenance</li>
-                        <li><i class="fas fa-check"></i> System Upgrades</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                <button class="btn btn-primary" id="calculate-btn" onclick="calculatePrice()">احسب السعر</button>
 
-    <!-- Why Choose Us -->
-    <section class="why-us">
-        <div class="container">
-            <h2 class="section-title">Why Choose CameraPro?</h2>
-            
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-number">10+</div>
-                    <p>Years of Experience</p>
+                <!-- Price Result -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-number">2000+</div>
-                    <p>Satisfied Customers</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-number">99.9%</div>
-                    <p>Uptime Guarantee</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-number">24/7</div>
-                    <p>Customer Support</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Price Calculator Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2 class="section-title">Instant Price Calculator</h2>
-            <p class="section-subtitle">See exactly what your security system will cost</p>
-            
-            <div class="calculator-wrapper">
-                <div class="calculator-form">
-                    <form id="priceForm">
-                        <div class="form-row">
+                <div id="price-result"></div>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="section">
+                <h2 id="contact-title">اطلب عرض أسعار</h2>
+                <div class="alert" id="form-alert"></div>
+                
+                <form id="quote-form" onsubmit="submitQuote(event)">
+                    <div class="grid-2">
+                        <div>
                             <div class="form-group">
-                                <label for="location">📍 Select Location</label>
-                                <select id="location" required>
-                                    <option value="">Choose your location...</option>
+                                <label id="name-label" for="name">الاسم</label>
+                                <input type="text" id="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label id="email-label" for="email">البريد الإلكتروني</label>
+                                <input type="email" id="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label id="phone-label" for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-group">
+                                <label id="service-label" for="service">نوع الخدمة</label>
+                                <select id="service">
+                                    <option value="CCTV Installation">تثبيت نظام CCTV</option>
+                                    <option value="Maintenance">الصيانة</option>
+                                    <option value="Consultation">استشارة</option>
+                                    <option value="Upgrade">تحديث</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="cameras">📷 Number of Cameras</label>
-                                <div class="input-slider">
-                                    <input type="range" id="cameras" min="1" max="20" value="4" class="slider">
-                                    <span class="slider-value"><span id="cameraCount">4</span> cameras</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="resolution">🎬 Camera Resolution</label>
-                                <select id="resolution" required>
-                                    <option value="">Select resolution...</option>
-                                </select>
+                                <label id="location-quote-label" for="location-quote">الموقع</label>
+                                <select id="location-quote"></select>
                             </div>
 
                             <div class="form-group">
-                                <label for="difficulty">⚙️ Installation Difficulty</label>
-                                <select id="difficulty" required>
-                                    <option value="">Select difficulty...</option>
-                                </select>
+                                <label id="camera-quote-label" for="camera-quote">عدد الكاميرات</label>
+                                <input type="number" id="camera-quote" min="1" max="100">
                             </div>
-                        </div>
-
-                        <button type="button" class="btn btn-primary btn-block" onclick="calculatePrice()">
-                            <i class="fas fa-calculator"></i> Calculate Price
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Price Display -->
-                <div id="priceResult" class="price-result hidden">
-                    <div class="price-card">
-                        <h3>Your Estimated Quote</h3>
-                        <div class="price-display">
-                            <span class="currency">$</span>
-                            <span class="price-amount" id="totalPrice">0.00</span>
-                        </div>
-                        <p class="price-period">Complete Installation</p>
-
-                        <div class="price-breakdown">
-                            <div class="breakdown-item">
-                                <span>Camera Equipment</span>
-                                <span>$<span id="cameraCost">0.00</span></span>
-                            </div>
-                            <div class="breakdown-item">
-                                <span>Labor & Installation</span>
-                                <span>$<span id="laborCost">0.00</span></span>
-                            </div>
-                            <div class="breakdown-item">
-                                <span>Travel Fee</span>
-                                <span>$<span id="travelFee">0.00</span></span>
-                            </div>
-                            <div class="breakdown-divider"></div>
-                            <div class="breakdown-item total">
-                                <span>Total Cost</span>
-                                <span>$<span id="totalPrice2">0.00</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get Your Free Quote</h2>
-            <p class="section-subtitle">Fill out the form below and our team will contact you within 24 hours</p>
-
-            <div class="contact-wrapper">
-                <form id="quoteForm" class="contact-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="service">Service Type</label>
-                            <input type="text" id="service" placeholder="Security Camera Installation" value="Security Camera Installation">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Tell us about your security needs..." rows="5" required></textarea>
+                        <label id="message-label" for="message">الرسالة</label>
+                        <textarea id="message" required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block btn-lg">
-                        <i class="fas fa-paper-plane"></i> Submit Quote Request
-                    </button>
-
-                    <div id="formMessage" class="form-message"></div>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">إرسال الطلب</button>
                 </form>
-
-                <div class="contact-info">
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h4>Phone</h4>
-                        <p>+1 (555) 000-0000</p>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h4>Email</h4>
-                        <p>info@camerapro.com</p>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h4>Response Time</h4>
-                        <p>Within 24 Hours</p>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>CameraPro</h4>
-                    <p>Your trusted partner in security camera installation and monitoring.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CameraPro. All rights reserved. | Privacy Policy | Terms of Service</p>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2026 CCTV Pro. جميع الحقوق محفوظة | All rights reserved</p>
     </footer>
 
-    <script src="/js/script.js"></script>
+    <script>
+        const API_BASE = '/api';
+        const TRANSLATIONS = {
+            'ar': {
+                'hero-title': 'نظام مراقبة أمني احترافي',
+                'hero-subtitle': 'أفضل حل أمني متكامل لعملك وممتلكاتك',
+                'calc-title': 'حاسبة الأسعار',
+                'location-label': 'الموقع',
+                'camera-count-label': 'عدد الكاميرات',
+                'resolution-label': 'دقة الكاميرا',
+                'difficulty-label': 'مستوى التثبيت',
+                'calculate-btn': 'احسب السعر',
+                'contact-title': 'اطلب عرض أسعار',
+                'name-label': 'الاسم',
+                'email-label': 'البريد الإلكتروني',
+                'phone-label': 'رقم الهاتف',
+                'service-label': 'نوع الخدمة',
+                'location-quote-label': 'الموقع',
+                'camera-quote-label': 'عدد الكاميرات',
+                'message-label': 'الرسالة',
+                'submit-btn': 'إرسال الطلب'
+            },
+            'fr': {
+                'hero-title': 'Système de Surveillance Professionnel',
+                'hero-subtitle': 'La meilleure solution de sécurité intégrée pour votre entreprise',
+                'calc-title': 'Calculatrice de Tarifs',
+                'location-label': 'Localisation',
+                'camera-count-label': 'Nombre de caméras',
+                'resolution-label': 'Résolution de caméra',
+                'difficulty-label': 'Niveau d\'installation',
+                'calculate-btn': 'Calculer le prix',
+                'contact-title': 'Demander un devis',
+                'name-label': 'Nom',
+                'email-label': 'Email',
+                'phone-label': 'Téléphone',
+                'service-label': 'Type de service',
+                'location-quote-label': 'Localisation',
+                'camera-quote-label': 'Nombre de caméras',
+                'message-label': 'Message',
+                'submit-btn': 'Envoyer la demande'
+            },
+            'en': {
+                'hero-title': 'Professional Security Monitoring System',
+                'hero-subtitle': 'The best integrated security solution for your business',
+                'calc-title': 'Price Calculator',
+                'location-label': 'Location',
+                'camera-count-label': 'Number of Cameras',
+                'resolution-label': 'Camera Resolution',
+                'difficulty-label': 'Installation Level',
+                'calculate-btn': 'Calculate Price',
+                'contact-title': 'Request Quote',
+                'name-label': 'Name',
+                'email-label': 'Email',
+                'phone-label': 'Phone',
+                'service-label': 'Service Type',
+                'location-quote-label': 'Location',
+                'camera-quote-label': 'Number of Cameras',
+                'message-label': 'Message',
+                'submit-btn': 'Send Request'
+            }
+        };
+
+        let currentLang = 'ar';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setupLanguageSwitcher();
+            loadData();
+        });
+
+        function setupLanguageSwitcher() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    switchLanguage(lang);
+                });
+            });
+        }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update text
+            Object.entries(TRANSLATIONS[lang]).forEach(([id, text]) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = text;
+            });
+
+            // Reload data
+            loadData();
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch(`${API_BASE}/../data?lang=${currentLang}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    populateSelects(result);
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function populateSelects(data) {
+            // Locations
+            const locationSelect = document.getElementById('location');
+            const locationQuoteSelect = document.getElementById('location-quote');
+            
+            locationSelect.innerHTML = '<option value="">-- اختر --</option>';
+            locationQuoteSelect.innerHTML = '<option value="">-- اختر --</option>';
+            
+            data.locations.forEach(loc => {
+                const option = document.createElement('option');
+                option.value = loc.id;
+                option.textContent = loc.name;
+                locationSelect.appendChild(option.cloneNode(true));
+                locationQuoteSelect.appendChild(option.cloneNode(true));
+            });
+
+            // Resolutions
+            const resolutionSelect = document.getElementById('resolution');
+            resolutionSelect.innerHTML = '<option value="">-- اختر --</option>';
+            
+            data.resolutions.forEach(res => {
+                const option = document.createElement('option');
+                option.value = res.resolution;
+                option.textContent = `${res.resolution} - ${res.description}`;
+                resolutionSelect.appendChild(option);
+            });
+
+            // Difficulties
+            const difficultySelect = document.getElementById('difficulty');
+            difficultySelect.innerHTML = '<option value="">-- اختر --</option>';
+            
+            data.difficulties.forEach(diff => {
+                const option = document.createElement('option');
+                option.value = diff.level;
+                option.textContent = `${diff.level} - ${diff.description}`;
+                difficultySelect.appendChild(option);
+            });
+        }
+
+        async function calculatePrice() {
+            const cameraCount = document.getElementById('camera-count').value;
+            const resolution = document.getElementById('resolution').value;
+            const locationId = document.getElementById('location').value;
+            const difficulty = document.getElementById('difficulty').value;
+
+            if (!cameraCount || !resolution || !locationId || !difficulty) {
+                showAlert('calc-alert', 'Please fill all fields', 'error');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('price-result').innerHTML = '';
+
+            try {
+                const response = await fetch(`${API_BASE}/calculate-price?lang=${currentLang}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        camera_count: parseInt(cameraCount),
+                        resolution: resolution,
+                        location_id: parseInt(locationId),
+                        difficulty_level: difficulty
+                    })
+                });
+
+                const result = await response.json();
+                document.getElementById('loading').style.display = 'none';
+
+                if (result.success) {
+                    displayPriceResult(result.pricing);
+                } else {
+                    showAlert('calc-alert', result.error, 'error');
+                }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                showAlert('calc-alert', 'Error calculating price', 'error');
+                console.error(error);
+            }
+        }
+
+        function displayPriceResult(pricing) {
+            const html = `
+                <div class="card" style="margin-top: 2rem;">
+                    <h3>تفاصيل السعر</h3>
+                    <p><strong>الكاميرا:</strong> ${pricing.camera_model}</p>
+                    <p><strong>عدد الكاميرات:</strong> ${pricing.camera_count}</p>
+                    <p><strong>تكلفة الكاميرات:</strong> ${pricing.base_cost} MAD</p>
+                    <p><strong>الموقع:</strong> ${pricing.location}</p>
+                    <p><strong>مستوى التثبيت:</strong> ${pricing.difficulty}</p>
+                    <p><strong>ساعات العمل:</strong> ${pricing.hours_required}</p>
+                    <p><strong>تكلفة العمالة:</strong> ${pricing.labor_cost} MAD</p>
+                    <p><strong>تكلفة النقل:</strong> ${pricing.travel_fee} MAD</p>
+                    <hr style="margin: 1rem 0;">
+                    <h2 style="color: var(--secondary-color); text-align: center;">${pricing.total_price} MAD</h2>
+                </div>
+            `;
+            document.getElementById('price-result').innerHTML = html;
+        }
+
+        async function submitQuote(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value,
+                language: currentLang,
+                location_id: document.getElementById('location-quote').value,
+                camera_count: document.getElementById('camera-quote').value
+            };
+
+            try {
+                const response = await fetch('/quote?lang=' + currentLang, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert('form-alert', result.message, 'success');
+                    document.getElementById('quote-form').reset();
+                } else {
+                    showAlert('form-alert', result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('form-alert', 'Error submitting form', 'error');
+                console.error(error);
+            }
+        }
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            setTimeout(() => {
+                alert.className = 'alert';
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
