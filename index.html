@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CameraPro - Professional Security Camera Installation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">CameraPro</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Professional Security Camera Installation</h1>
+            <p>Expert installation and setup for residential and commercial properties</p>
+            <a href="#contact" class="btn btn-primary">Get a Quote</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Camera Installation</h3>
+                    <p>Professional installation of high-quality security cameras</p>
+                </div>
+                <div class="service-card">
+                    <h3>System Configuration</h3>
+                    <p>Complete setup and network configuration for your system</p>
+                </div>
+                <div class="service-card">
+                    <h3>Maintenance</h3>
+                    <p>Regular maintenance and support for your security system</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Calculator Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Price Calculator</h2>
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <select id="location" required>
+                        <option value="">Select Location</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cameras">Number of Cameras:</label>
+                    <input type="number" id="cameras" min="1" max="20" value="4" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="resolution">Camera Resolution:</label>
+                    <select id="resolution" required>
+                        <option value="">Select Resolution</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Installation Difficulty:</label>
+                    <select id="difficulty" required>
+                        <option value="">Select Difficulty</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-secondary" onclick="calculatePrice()">Calculate Price</button>
+
+                <div id="priceResult" class="price-result" style="display:none;">
+                    <h3>Estimated Price: $<span id="totalPrice">0.00</span></h3>
+                    <div class="breakdown">
+                        <p>Camera Cost: $<span id="cameraCost">0.00</span></p>
+                        <p>Labor Cost: $<span id="laborCost">0.00</span></p>
+                        <p>Travel Fee: $<span id="travelFee">0.00</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get Your Free Quote</h2>
+            <form id="quoteForm" class="quote-form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="service" placeholder="Service Type" value="Security Camera Installation">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" placeholder="Tell us about your needs" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Quote Request</button>
+                <div id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CameraPro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

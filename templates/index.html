@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CameraPro - Premium Security Camera Solutions</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <i class="fas fa-camera"></i>
+                <span>CameraPro</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Protect What Matters Most</h1>
+            <p class="hero-subtitle">Professional Security Camera Installation & Monitoring Solutions</p>
+            <a href="#pricing" class="btn btn-primary btn-lg">Get Your Quote Now</a>
+        </div>
+        <div class="hero-background">
+            <div class="animated-shape shape-1"></div>
+            <div class="animated-shape shape-2"></div>
+            <div class="animated-shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Premium Services</h2>
+            <p class="section-subtitle">Comprehensive security solutions for residential and commercial properties</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Professional Installation</h3>
+                    <p>Expert technicians install high-quality 4K cameras with precision mounting and cable management</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 4K Ultra HD Cameras</li>
+                        <li><i class="fas fa-check"></i> Hidden Wiring</li>
+                        <li><i class="fas fa-check"></i> Weatherproof Mounting</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>System Configuration</h3>
+                    <p>Complete network setup, cloud integration, and mobile app configuration for 24/7 monitoring</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Cloud Storage</li>
+                        <li><i class="fas fa-check"></i> Mobile App Access</li>
+                        <li><i class="fas fa-check"></i> AI Detection</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>24/7 Support & Maintenance</h3>
+                    <p>Round-the-clock support, regular maintenance, and system upgrades to keep your security optimal</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                        <li><i class="fas fa-check"></i> Free Maintenance</li>
+                        <li><i class="fas fa-check"></i> System Upgrades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose CameraPro?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-number">10+</div>
+                    <p>Years of Experience</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">2000+</div>
+                    <p>Satisfied Customers</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">99.9%</div>
+                    <p>Uptime Guarantee</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-number">24/7</div>
+                    <p>Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Instant Price Calculator</h2>
+            <p class="section-subtitle">See exactly what your security system will cost</p>
+            
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <form id="priceForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="location">📍 Select Location</label>
+                                <select id="location" required>
+                                    <option value="">Choose your location...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cameras">📷 Number of Cameras</label>
+                                <div class="input-slider">
+                                    <input type="range" id="cameras" min="1" max="20" value="4" class="slider">
+                                    <span class="slider-value"><span id="cameraCount">4</span> cameras</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resolution">🎬 Camera Resolution</label>
+                                <select id="resolution" required>
+                                    <option value="">Select resolution...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="difficulty">⚙️ Installation Difficulty</label>
+                                <select id="difficulty" required>
+                                    <option value="">Select difficulty...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-block" onclick="calculatePrice()">
+                            <i class="fas fa-calculator"></i> Calculate Price
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Price Display -->
+                <div id="priceResult" class="price-result hidden">
+                    <div class="price-card">
+                        <h3>Your Estimated Quote</h3>
+                        <div class="price-display">
+                            <span class="currency">$</span>
+                            <span class="price-amount" id="totalPrice">0.00</span>
+                        </div>
+                        <p class="price-period">Complete Installation</p>
+
+                        <div class="price-breakdown">
+                            <div class="breakdown-item">
+                                <span>Camera Equipment</span>
+                                <span>$<span id="cameraCost">0.00</span></span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Labor & Installation</span>
+                                <span>$<span id="laborCost">0.00</span></span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Travel Fee</span>
+                                <span>$<span id="travelFee">0.00</span></span>
+                            </div>
+                            <div class="breakdown-divider"></div>
+                            <div class="breakdown-item total">
+                                <span>Total Cost</span>
+                                <span>$<span id="totalPrice2">0.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get Your Free Quote</h2>
+            <p class="section-subtitle">Fill out the form below and our team will contact you within 24 hours</p>
+
+            <div class="contact-wrapper">
+                <form id="quoteForm" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Type</label>
+                            <input type="text" id="service" placeholder="Security Camera Installation" value="Security Camera Installation">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Tell us about your security needs..." rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-paper-plane"></i> Submit Quote Request
+                    </button>
+
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Phone</h4>
+                        <p>+1 (555) 000-0000</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p>info@camerapro.com</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Response Time</h4>
+                        <p>Within 24 Hours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CameraPro</h4>
+                    <p>Your trusted partner in security camera installation and monitoring.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CameraPro. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
