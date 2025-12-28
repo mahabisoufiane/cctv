@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Pro - نظام مراقبة احترافي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .lang-switcher button {
+            background: transparent;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .lang-switcher button:hover {
+            background: #f0f0f0;
+        }
+        
+        .lang-switcher button.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .calculator {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .calculator h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .price-result {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .price-result h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-top: 10px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .quote-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <button onclick="changeLang('ar')" id="lang-ar" class="active">العربية</button>
+        <button onclick="changeLang('fr')" id="lang-fr">Français</button>
+        <button onclick="changeLang('en')" id="lang-en">English</button>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 id="title">نظام مراقبة CCTV احترافي</h1>
+            <p id="subtitle">احصل على عرض سعر فوري لنظام المراقبة الخاص بك</p>
+        </div>
+        
+        <div class="content">
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <!-- Price Calculator -->
+            <div class="calculator">
+                <h2 id="calcTitle">حاسبة الأسعار</h2>
+                
+                <div class="form-group">
+                    <label id="labelLocation">الموقع</label>
+                    <select id="location" onchange="calculatePrice()">
+                        <option value="">اختر الموقع...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label id="labelCameras">عدد الكاميرات</label>
+                    <input type="number" id="cameraCount" min="1" max="50" value="4" onchange="calculatePrice()">
+                </div>
+                
+                <div class="form-group">
+                    <label id="labelResolution">دقة الكاميرا</label>
+                    <select id="resolution" onchange="calculatePrice()">
+                        <option value="">اختر الدقة...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label id="labelDifficulty">صعوبة التركيب</label>
+                    <select id="difficulty" onchange="calculatePrice()">
+                        <option value="">اختر المستوى...</option>
+                    </select>
+                </div>
+                
+                <div class="price-result" id="priceResult" style="display:none;">
+                    <p id="priceLabel">السعر التقديري</p>
+                    <h3 id="totalPrice">0 درهم</h3>
+                    <p id="priceNote" style="color: #666; margin-top: 10px;">* السعر شامل جميع التكاليف</p>
+                </div>
+            </div>
+            
+            <!-- Quote Request Form -->
+            <div class="quote-form">
+                <h2 id="formTitle">طلب عرض سعر</h2>
+                <form id="quoteForm" onsubmit="submitQuote(event)">
+                    <div class="form-group">
+                        <label id="labelName">الاسم الكامل</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="labelEmail">البريد الإلكتروني</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="labelPhone">رقم الهاتف</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="labelMessage">رسالة إضافية</label>
+                        <textarea id="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn">إرسال الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentLang = 'ar';
+        let pricingData = {};
+        
+        const translations = {
+            ar: {
+                title: 'نظام مراقبة CCTV احترافي',
+                subtitle: 'احصل على عرض سعر فوري لنظام المراقبة الخاص بك',
+                calcTitle: 'حاسبة الأسعار',
+                labelLocation: 'الموقع',
+                labelCameras: 'عدد الكاميرات',
+                labelResolution: 'دقة الكاميرا',
+                labelDifficulty: 'صعوبة التركيب',
+                priceLabel: 'السعر التقديري',
+                priceNote: '* السعر شامل جميع التكاليف',
+                formTitle: 'طلب عرض سعر',
+                labelName: 'الاسم الكامل',
+                labelEmail: 'البريد الإلكتروني',
+                labelPhone: 'رقم الهاتف',
+                labelMessage: 'رسالة إضافية',
+                submitBtn: 'إرسال الطلب',
+                currency: 'درهم'
+            },
+            fr: {
+                title: 'Système CCTV Professionnel',
+                subtitle: 'Obtenez un devis instantané pour votre système de surveillance',
+                calcTitle: 'Calculateur de Prix',
+                labelLocation: 'Emplacement',
+                labelCameras: 'Nombre de caméras',
+                labelResolution: 'Résolution caméra',
+                labelDifficulty: 'Difficulté d\'installation',
+                priceLabel: 'Prix Estimé',
+                priceNote: '* Prix tout compris',
+                formTitle: 'Demande de Devis',
+                labelName: 'Nom Complet',
+                labelEmail: 'Email',
+                labelPhone: 'Téléphone',
+                labelMessage: 'Message Additionnel',
+                submitBtn: 'Envoyer la Demande',
+                currency: 'MAD'
+            },
+            en: {
+                title: 'Professional CCTV System',
+                subtitle: 'Get instant quote for your surveillance system',
+                calcTitle: 'Price Calculator',
+                labelLocation: 'Location',
+                labelCameras: 'Number of Cameras',
+                labelResolution: 'Camera Resolution',
+                labelDifficulty: 'Installation Difficulty',
+                priceLabel: 'Estimated Price',
+                priceNote: '* All-inclusive price',
+                formTitle: 'Request Quote',
+                labelName: 'Full Name',
+                labelEmail: 'Email',
+                labelPhone: 'Phone',
+                labelMessage: 'Additional Message',
+                submitBtn: 'Submit Request',
+                currency: 'MAD'
+            }
+        };
+        
+        function changeLang(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update active button
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+            
+            // Update text content
+            const t = translations[lang];
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('subtitle').textContent = t.subtitle;
+            document.getElementById('calcTitle').textContent = t.calcTitle;
+            document.getElementById('labelLocation').textContent = t.labelLocation;
+            document.getElementById('labelCameras').textContent = t.labelCameras;
+            document.getElementById('labelResolution').textContent = t.labelResolution;
+            document.getElementById('labelDifficulty').textContent = t.labelDifficulty;
+            document.getElementById('priceLabel').textContent = t.priceLabel;
+            document.getElementById('priceNote').textContent = t.priceNote;
+            document.getElementById('formTitle').textContent = t.formTitle;
+            document.getElementById('labelName').textContent = t.labelName;
+            document.getElementById('labelEmail').textContent = t.labelEmail;
+            document.getElementById('labelPhone').textContent = t.labelPhone;
+            document.getElementById('labelMessage').textContent = t.labelMessage;
+            document.getElementById('submitBtn').textContent = t.submitBtn;
+            
+            // Reload data with new language
+            loadData();
+        }
+        
+        async function loadData() {
+            try {
+                const response = await fetch('/data?lang=' + currentLang);
+                const data = await response.json();
+                pricingData = data;
+                
+                // Populate dropdowns
+                populateSelect('location', data.locations, 'name');
+                populateSelect('resolution', data.resolutions, 'resolution');
+                populateSelect('difficulty', data.difficulties, 'level');
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+        
+        function populateSelect(selectId, items, valueKey) {
+            const select = document.getElementById(selectId);
+            const firstOption = select.options[0].text;
+            select.innerHTML = `<option value="">${firstOption}</option>`;
+            
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item[valueKey];
+                select.appendChild(option);
+            });
+        }
+        
+        async function calculatePrice() {
+            const location = document.getElementById('location').value;
+            const cameraCount = document.getElementById('cameraCount').value;
+            const resolution = document.getElementById('resolution').value;
+            const difficulty = document.getElementById('difficulty').value;
+            
+            if (!location || !cameraCount || !resolution || !difficulty) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/calculate-price?lang=' + currentLang, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        location_id: parseInt(location),
+                        camera_count: parseInt(cameraCount),
+                        resolution: resolution,
+                        difficulty_level: difficulty
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    const currency = translations[currentLang].currency;
+                    document.getElementById('totalPrice').textContent = 
+                        Math.round(data.pricing.total_price) + ' ' + currency;
+                    document.getElementById('priceResult').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error calculating price:', error);
+            }
+        }
+        
+        async function submitQuote(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                service: 'CCTV Installation',
+                location_id: parseInt(document.getElementById('location').value) || 1,
+                camera_count: parseInt(document.getElementById('cameraCount').value) || 4,
+                resolution: document.getElementById('resolution').value || '2mp',
+                difficulty_level: document.getElementById('difficulty').value || 'Medium'
+            };
+            
+            try {
+                const response = await fetch('/quote?lang=' + currentLang, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('successMessage').textContent = data.message;
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('quoteForm').reset();
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                } else {
+                    document.getElementById('errorMessage').textContent = data.error;
+                    document.getElementById('errorMessage').style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = 'Error submitting request';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+        
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
